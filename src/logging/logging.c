@@ -88,8 +88,8 @@ static void timestamp_print() {
 	ltime = time(NULL);
 	tm = (struct tm*)localtime_r(&ltime, tm);
 	
-	fprintf(_destination, "%02d.%02d.%04d/%02d:%02d:%02d", tm->tm_mday, tm->tm_mon, (tm->tm_year
-			+ 1900), tm->tm_hour, tm->tm_min, tm->tm_sec);
+	fprintf(_destination, "%02d.%02d.%04d/%02d:%02d:%02d", tm->tm_mday, tm->tm_mon + 1,
+			(tm->tm_year + 1900), tm->tm_hour, tm->tm_min, tm->tm_sec);
 	
 	free(tm);
 }
@@ -154,7 +154,7 @@ void logging_set_timestamp_printed(char timestamp_printed) {
  * details.
  * @param ... additional parameters for the format string; see printf() for details.
  */
-void logging_log(const char *module, unsigned short level, const char *message, ...) {	
+void logging_log(const char *module, unsigned short level, const char *message, ...) {
 	va_list arglist;
 	va_start(arglist, message);
 	
@@ -209,8 +209,7 @@ FILE *logging_aquire_fd(unsigned short level) {
 		logging_log("Logging", level, "*** External logging started...");
 		pthread_mutex_lock(print_mutex);
 		return _destination;
-	}
-	else
+	} else
 		return NULL;
 }
 

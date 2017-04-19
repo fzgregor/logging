@@ -27,6 +27,10 @@
 #ifndef LOGGING_H_
 #define LOGGING_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief This constant is used to define the log level to be set if no logging is wanted.
  * 
@@ -88,5 +92,9 @@ extern void logging_set_timestamp_printed(char timestamp_printed);
 extern void logging_log(const char *module, unsigned short level, const char *message, ...);
 extern FILE *logging_aquire_fd(unsigned short level);
 extern void logging_release_fd(unsigned short level);
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif /* LOGGING_H_ */
